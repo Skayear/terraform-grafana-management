@@ -1,6 +1,6 @@
 module "text_welcome_example" {
   source = "../../../../../modules/panels/text"
-  title = "Welcome"
+  title = "Welcome Text - Example"
 
   gridPos = {
     x = 0

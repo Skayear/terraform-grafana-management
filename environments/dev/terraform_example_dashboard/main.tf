@@ -12,7 +12,8 @@ resource "grafana_dashboard" "example" {
     version = 1
 
     panels = [
-      module.text_welcome_example.text_welcome_example
+      module.text_welcome_example.text_welcome_example,
+      module.graph_welcome_example.graph_welcome_example,
     ]
   })
 }
@@ -23,4 +24,9 @@ resource "grafana_dashboard" "example" {
 
 module "text_welcome_example" {
   source = "./panels/text_welcome_example"
+}
+
+module "graph_welcome_example" {
+  source = "./panels/graph_welcome_example"
+  datasource_uid = var.datasource_uid
 }
