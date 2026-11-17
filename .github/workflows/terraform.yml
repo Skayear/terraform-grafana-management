@@ -1,0 +1,28 @@
+name: terraform
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: version
+        run: echo "terraform=$(cat .terraform-version)" >> "$GITHUB_OUTPUT"
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ steps.version.outputs.terraform }}
+
+      - name: Format
+        run: terraform fmt -check -recursive
+
+      - name: Validate dev
+        working-directory: environments/dev
+        run: |
+          terraform init -backend=false -input=false
+          terraform validate

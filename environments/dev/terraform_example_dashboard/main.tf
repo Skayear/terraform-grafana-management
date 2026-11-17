@@ -6,14 +6,14 @@ resource "grafana_dashboard" "example" {
   folder = grafana_folder.example.uid
 
   config_json = jsonencode({
-    title   = "Example Dashboard (Terraform)"
-    uid     = "example-terraform-dashboard"
+    title         = "Example Dashboard (Terraform)"
+    uid           = "example-terraform-dashboard"
     schemaVersion = 38
-    version = 1
+    version       = 1
 
     panels = [
-      module.text_welcome_example.text_welcome_example,
-      module.graph_welcome_example.graph_welcome_example,
+      module.text_welcome_example.panel,
+      module.graph_welcome_example.panel,
     ]
   })
 }
@@ -23,10 +23,30 @@ resource "grafana_dashboard" "example" {
 #######################
 
 module "text_welcome_example" {
-  source = "./panels/text_welcome_example"
+  source = "../../../modules/panels/text"
+
+  title   = "Welcome Text - Example"
+  content = "🚀 Dashboard creado con Terraform"
+  mode    = "markdown"
+
+  gridPos = {
+    x = 0
+    y = 0
+    w = 12
+    h = 6
+  }
 }
 
 module "graph_welcome_example" {
-  source = "./panels/graph_welcome_example"
-  datasource_uid = var.datasource_uid
+  source = "../../../modules/panels/graph"
+
+  title      = "Welcome Graph - Example"
+  datasource = var.datasource
+
+  gridPos = {
+    x = 12
+    y = 0
+    w = 12
+    h = 6
+  }
 }
