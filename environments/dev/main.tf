@@ -39,3 +39,10 @@ module "panel_showcase_dashboard" {
   folder_uid = grafana_folder.terraform.uid
   datasource = local.testdata
 }
+
+# Folders and dashboards exported from Grafana with scripts/export_grafana.py.
+module "dashboards" {
+  source = "../../modules/dashboards"
+
+  path = "${path.module}/dashboards"
+}
