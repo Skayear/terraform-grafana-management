@@ -1,9 +1,5 @@
-resource "grafana_folder" "example" {
-  title = "Terraform Dashboards"
-}
-
 resource "grafana_dashboard" "example" {
-  folder = grafana_folder.example.uid
+  folder = var.folder_uid
 
   config_json = jsonencode({
     title         = "Example Dashboard (Terraform)"
