@@ -5,3 +5,8 @@ variable "datasource" {
     type = string
   })
 }
+
+variable "folder_uid" {
+  description = "UID of the folder that holds the dashboard."
+  type        = string
+}
